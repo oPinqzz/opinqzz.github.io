@@ -1,1348 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Abdelrahman — oPinqzz</title>
-
-    <style>
-        :root {
-            --bg: #242424;
-            --surface: #2b2b2b;
-            --surface-2: #303030;
-            --text: #f1efe9;
-            --muted: #aaa8a1;
-            --dim: #6e6c67;
-            --line: #414141;
-
-            /* New accent — intentionally NOT red */
-            --accent: #d6b85a;
-            --accent-soft: rgba(214, 184, 90, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-
-            font-family:
-                Inter,
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                sans-serif;
-
-            overflow-x: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        ::selection {
-            background: var(--accent);
-            color: #242424;
-        }
-
-        /* ----------------------------------
-           Background
-        ---------------------------------- */
-
-        body::before {
-            content: "";
-
-            position: fixed;
-            inset: 0;
-
-            pointer-events: none;
-
-            opacity: 0.035;
-
-            background-image:
-                linear-gradient(#fff 1px, transparent 1px),
-                linear-gradient(90deg, #fff 1px, transparent 1px);
-
-            background-size: 40px 40px;
-
-            mask-image: linear-gradient(
-                to bottom,
-                black,
-                transparent 80%
-            );
-        }
-
-        .page {
-            width: min(1180px, calc(100% - 48px));
-            margin: auto;
-        }
-
-        /* ----------------------------------
-           Top bar
-        ---------------------------------- */
-
-        .topbar {
-            height: 64px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            border-bottom: 1px solid var(--line);
-
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        .identity {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .identity-mark {
-            width: 12px;
-            height: 12px;
-
-            border: 1px solid var(--accent);
-
-            transform: rotate(45deg);
-
-            transition: transform 0.3s ease;
-        }
-
-        .identity:hover .identity-mark {
-            transform: rotate(135deg);
-        }
-
-        .handle {
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .top-right {
-            display: flex;
-            gap: 24px;
-        }
-
-        .top-right a {
-            transition: color 0.2s ease;
-        }
-
-        .top-right a:hover {
-            color: var(--accent);
-        }
-
-        /* ----------------------------------
-           Hero
-        ---------------------------------- */
-
-        .hero {
-            min-height: calc(100vh - 64px);
-
-            display: flex;
-            align-items: center;
-
-            position: relative;
-        }
-
-        .hero-inner {
-            width: 100%;
-
-            display: grid;
-            grid-template-columns: 1fr 260px;
-
-            gap: 100px;
-
-            align-items: end;
-        }
-
-        .tiny {
-            color: var(--accent);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 11px;
-
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-
-            margin-bottom: 24px;
-        }
-
-        h1 {
-            font-size: clamp(72px, 12vw, 155px);
-
-            line-height: 0.82;
-
-            letter-spacing: -0.085em;
-
-            font-weight: 850;
-
-            margin-bottom: 42px;
-        }
-
-        h1 .outline {
-            color: transparent;
-
-            -webkit-text-stroke: 1px var(--text);
-
-            transition:
-                color 0.3s ease,
-                -webkit-text-stroke 0.3s ease;
-        }
-
-        h1:hover .outline {
-            color: var(--accent);
-            -webkit-text-stroke: 1px var(--accent);
-        }
-
-        .hero-description {
-            max-width: 680px;
-
-            font-size: 21px;
-
-            line-height: 1.55;
-
-            color: #d0cdc5;
-        }
-
-        .hero-description strong {
-            color: var(--text);
-        }
-
-        .hero-side {
-            border-left: 1px solid var(--accent);
-
-            padding-left: 20px;
-
-            color: var(--muted);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 11px;
-
-            line-height: 1.9;
-        }
-
-        .hero-side-title {
-            color: var(--text);
-
-            margin-bottom: 12px;
-
-            font-size: 12px;
-
-            font-weight: 700;
-        }
-
-        .status {
-            color: var(--accent);
-        }
-
-        .scroll-hint {
-            margin-top: 70px;
-
-            display: flex;
-            align-items: center;
-
-            gap: 12px;
-
-            color: var(--dim);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 10px;
-        }
-
-        .scroll-line {
-            width: 45px;
-            height: 1px;
-
-            background: var(--accent);
-        }
-
-        /* ----------------------------------
-           Weird ticker
-        ---------------------------------- */
-
-        .ticker {
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-
-            overflow: hidden;
-
-            white-space: nowrap;
-
-            color: var(--dim);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 10px;
-
-            padding: 12px 0;
-        }
-
-        .ticker-track {
-            width: max-content;
-
-            animation: ticker 28s linear infinite;
-        }
-
-        .ticker span {
-            margin-right: 55px;
-        }
-
-        .ticker .highlight {
-            color: var(--accent);
-        }
-
-        @keyframes ticker {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* ----------------------------------
-           About
-        ---------------------------------- */
-
-        section {
-            padding: 140px 0;
-        }
-
-        .section-number {
-            color: var(--accent);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 11px;
-
-            margin-bottom: 22px;
-        }
-
-        .about-grid {
-            display: grid;
-
-            grid-template-columns: 0.7fr 1.3fr;
-
-            gap: 100px;
-        }
-
-        .about h2,
-        .projects h2 {
-            font-size: clamp(45px, 7vw, 82px);
-
-            line-height: 0.9;
-
-            letter-spacing: -0.075em;
-        }
-
-        .about-text {
-            max-width: 720px;
-
-            font-size: 22px;
-
-            line-height: 1.65;
-
-            color: #d1cec7;
-        }
-
-        .about-text p + p {
-            margin-top: 28px;
-        }
-
-        .about-text .emphasis {
-            color: var(--text);
-
-            border-bottom: 1px solid var(--accent);
-        }
-
-        .little-things {
-            margin-top: 45px;
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
-        }
-
-        .little-thing {
-            border: 1px solid var(--line);
-
-            padding: 9px 12px;
-
-            color: var(--muted);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 11px;
-
-            transition:
-                border-color 0.2s ease,
-                color 0.2s ease,
-                transform 0.2s ease;
-        }
-
-        .little-thing:hover {
-            border-color: var(--accent);
-
-            color: var(--accent);
-
-            transform: translateY(-2px);
-        }
-
-        /* ----------------------------------
-           Projects
-        ---------------------------------- */
-
-        .projects {
-            border-top: 1px solid var(--line);
-        }
-
-        .projects-intro {
-            display: grid;
-
-            grid-template-columns: 0.7fr 1.3fr;
-
-            gap: 100px;
-        }
-
-        .projects-subtitle {
-            color: var(--muted);
-
-            font-size: 16px;
-
-            line-height: 1.7;
-
-            max-width: 550px;
-        }
-
-        .project-list {
-            margin-top: 65px;
-
-            border-top: 1px solid var(--line);
-        }
-
-        .project {
-            display: grid;
-
-            grid-template-columns: 70px 1fr 150px;
-
-            gap: 25px;
-
-            padding: 32px 0;
-
-            border-bottom: 1px solid var(--line);
-
-            transition:
-                padding-left 0.25s ease,
-                background 0.25s ease;
-        }
-
-        .project:hover {
-            padding-left: 18px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    var(--accent-soft),
-                    transparent 70%
-                );
-        }
-
-        .project-number {
-            color: var(--dim);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 11px;
-        }
-
-        .project h3 {
-            font-size: 35px;
-
-            letter-spacing: -0.055em;
-
-            margin-bottom: 8px;
-
-            transition: color 0.2s ease;
-        }
-
-        .project:hover h3 {
-            color: var(--accent);
-        }
-
-        .project-description {
-            color: var(--muted);
-
-            max-width: 650px;
-
-            font-size: 13px;
-
-            line-height: 1.75;
-        }
-
-        .project-meta {
-            text-align: right;
-
-            color: var(--dim);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 10px;
-
-            line-height: 1.8;
-        }
-
-        .project-meta .active {
-            color: var(--accent);
-        }
-
-        /* ----------------------------------
-           Terminal
-        ---------------------------------- */
-
-        .terminal-section {
-            border-top: 1px solid var(--line);
-
-            padding-top: 100px;
-        }
-
-        .terminal-label {
-            color: var(--accent);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 11px;
-
-            margin-bottom: 20px;
-        }
-
-        .terminal {
-            background: #202020;
-
-            border: 1px solid var(--line);
-
-            box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.12);
-        }
-
-        .terminal-header {
-            height: 40px;
-
-            display: flex;
-            align-items: center;
-
-            gap: 7px;
-
-            padding: 0 14px;
-
-            border-bottom: 1px solid var(--line);
-        }
-
-        .terminal-dot {
-            width: 8px;
-            height: 8px;
-
-            border-radius: 50%;
-
-            background: #555;
-        }
-
-        .terminal-dot:first-child {
-            background: var(--accent);
-        }
-
-        .terminal-title {
-            margin-left: 8px;
-
-            color: var(--dim);
-
-            font-size: 10px;
-        }
-
-        .terminal-body {
-            min-height: 260px;
-
-            padding: 25px;
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 12px;
-
-            line-height: 2;
-        }
-
-        .prompt {
-            color: var(--accent);
-        }
-
-        .terminal-output {
-            color: #aaa8a1;
-
-            margin-bottom: 14px;
-        }
-
-        .command-line {
-            display: flex;
-        }
-
-        #command {
-            width: 100%;
-
-            background: transparent;
-
-            border: 0;
-            outline: 0;
-
-            color: var(--text);
-
-            font: inherit;
-        }
-
-        /* ----------------------------------
-           Contact / ending
-        ---------------------------------- */
-
-        .ending {
-            padding-bottom: 70px;
-        }
-
-        .ending-grid {
-            display: flex;
-
-            align-items: flex-end;
-
-            justify-content: space-between;
-
-            gap: 50px;
-        }
-
-        .ending h2 {
-            font-size: clamp(55px, 9vw, 110px);
-
-            line-height: 0.82;
-
-            letter-spacing: -0.085em;
-        }
-
-        .ending h2 span {
-            color: var(--accent);
-        }
-
-        .ending-side {
-            color: var(--muted);
-
-            font-size: 12px;
-
-            line-height: 2;
-
-            text-align: right;
-        }
-
-        .ending-side a:hover {
-            color: var(--accent);
-        }
-
-        footer {
-            border-top: 1px solid var(--line);
-
-            padding: 25px 0;
-
-            color: var(--dim);
-
-            font-family:
-                ui-monospace,
-                SFMono-Regular,
-                Menlo,
-                monospace;
-
-            font-size: 10px;
-
-            display: flex;
-
-            justify-content: space-between;
-        }
-
-        /* ----------------------------------
-           Responsive
-        ---------------------------------- */
-
-        @media (max-width: 800px) {
-
-            .page {
-                width: min(100% - 28px, 620px);
-            }
-
-            .top-right {
-                display: none;
-            }
-
-            .hero {
-                min-height: auto;
-
-                padding: 100px 0 120px;
-            }
-
-            .hero-inner,
-            .about-grid,
-            .projects-intro {
-                grid-template-columns: 1fr;
-
-                gap: 50px;
-            }
-
-            h1 {
-                font-size: clamp(65px, 19vw, 110px);
-            }
-
-            .hero-description {
-                font-size: 18px;
-            }
-
-            .hero-side {
-                max-width: 380px;
-            }
-
-            section {
-                padding: 100px 0;
-            }
-
-            .about-text {
-                font-size: 19px;
-            }
-
-            .project {
-                grid-template-columns: 42px 1fr;
-
-                gap: 12px;
-            }
-
-            .project-meta {
-                grid-column: 2;
-
-                text-align: left;
-
-                margin-top: 5px;
-            }
-
-            .project h3 {
-                font-size: 29px;
-            }
-
-            .ending-grid {
-                flex-direction: column;
-
-                align-items: flex-start;
-            }
-
-            .ending-side {
-                text-align: left;
-            }
-
-            footer {
-                display: block;
-            }
-
-            footer span {
-                display: block;
-
-                margin-top: 8px;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>comment ça marche ? — oPinqzz</title>
+<meta name="description" content="Abdelrahman, online as oPinqzz. A small corner of the internet about how things work.">
+<style>
+:root{
+  --bg:#e4e8dc;--paper:#f5f6ef;--ink:#141b17;--dim:#59645b;--blue:#2437ff;
+  --sans:"Gill Sans","Gill Sans MT","Trebuchet MS",Verdana,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.15rem;line-height:1.6;transition:background .3s,color .3s}
+body.all{--bg:#0f1512;--paper:#18211c;--ink:#b9f2cd;--dim:#6f9580;--blue:#8f9bff;font-family:var(--mono)}
+::selection{background:var(--blue);color:var(--bg)}
+a{color:inherit;text-decoration-color:var(--blue);text-decoration-thickness:2px;text-underline-offset:.2em}
+a:hover{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{max-width:60rem;margin:0 auto;padding:1.25rem clamp(1.1rem,5vw,3rem) 6rem}
+.small{font-size:.85rem;color:var(--dim)}
+.u{cursor:help}
+.u .h{display:none;word-break:break-all;font-family:var(--mono);font-size:.8em;line-height:1.5}
+.u.x .h{display:inline}
+.u.x .o{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+h1{margin:clamp(3rem,12vh,7rem) 0 .25rem;font-size:clamp(3rem,12.5vw,9.5rem);line-height:.92;letter-spacing:-.045em;font-weight:800}
+h1.x{font-size:clamp(1.3rem,4vw,2.2rem);letter-spacing:0;line-height:1.4}
+.gloss{margin:0 0 clamp(2.5rem,8vh,5rem);font-size:1.3rem;color:var(--blue)}
+.intro{max-width:34rem;margin:0 0 0 clamp(0rem,14vw,10rem);font-size:1.3rem}
+.intro+.intro{color:var(--dim);font-size:1.15rem}
+
+h2{margin:clamp(4rem,12vh,8rem) 0 1.25rem;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.1;letter-spacing:-.02em}
+.where{max-width:32rem;margin-left:clamp(0rem,22vw,16rem)}
+.where p{margin:0 0 1em}
+
+/* workbench */
+.bench{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem 3rem;align-items:start}
+.tag{position:relative;background:var(--paper);border:2px solid var(--ink);padding:2.6rem 1.4rem 1.4rem;transform:rotate(-1.4deg);transition:transform .2s}
+.tag:nth-child(2){transform:rotate(1.1deg) translateY(2.5rem)}
+.tag:hover{transform:rotate(0) translateY(-4px)}
+.tag::before{content:"";position:absolute;top:.8rem;left:50%;margin-left:-.5rem;width:1rem;height:1rem;border-radius:50%;border:2px solid var(--ink);background:var(--bg)}
+.tag h3{margin:0 0 .4rem;font-size:2rem;letter-spacing:-.03em;line-height:1}
+.tag p{margin:.4rem 0 .9rem}
+.stamp{display:inline-block;border:2px solid var(--blue);color:var(--blue);padding:.05rem .5rem;font-family:var(--mono);font-size:.8rem;transform:rotate(-3deg)}
+
+/* french */
+.fr{max-width:36rem;margin-left:clamp(0rem,8vw,6rem)}
+.card{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-left:6px solid var(--blue);padding:.2rem 0 .2rem 1.2rem;cursor:pointer}
+.card b{display:block;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.15;letter-spacing:-.02em}
+.card span{display:block;color:var(--dim);margin-top:.3rem}
+.card:hover b{color:var(--blue)}
+
+/* end */
+.end{margin-top:clamp(5rem,16vh,10rem)}
+.end p.big{margin:0;font-size:clamp(2rem,7vw,4.6rem);line-height:1.05;letter-spacing:-.035em;font-weight:800;max-width:14em}
+.links{display:flex;gap:2rem;flex-wrap:wrap;margin:2rem 0 1.5rem;font-size:1.3rem}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:4;display:flex;justify-content:center;padding:.75rem 1rem 0;pointer-events:none}
+.nav nav{pointer-events:auto;display:flex;align-items:center;gap:.25rem;max-width:100%;background:var(--paper);border:2px solid var(--ink);border-radius:2rem;padding:.3rem .4rem .3rem .9rem;overflow-x:auto;scrollbar-width:none}
+.nav nav::-webkit-scrollbar{display:none}
+.face{font-family:var(--mono);font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap;margin-right:.4rem}
+.face::after{content:"(•‿•)"}
+.face:hover::after{content:"(•o•)"}
+.nav a:not(.face){font-size:.95rem;text-decoration:none;padding:.3rem .75rem;border-radius:1.5rem;white-space:nowrap}
+.nav a:not(.face):hover{background:var(--blue);color:#fff}
+
+/* shelf + writing */
+.shelf{list-style:none;margin:0;padding:0;max-width:36rem;margin-left:clamp(0rem,14vw,10rem)}
+.shelf li{padding:.9rem 0;border-bottom:1px dashed var(--dim)}
+.shelf b{font-size:1.25rem}.shelf .small{display:block}
+.shelf p{margin:.3rem 0 0}
+.post{max-width:36rem;margin-left:clamp(0rem,8vw,6rem);padding-bottom:1.5rem}
+.post h3{margin:0;font-size:1.6rem;letter-spacing:-.02em}
+.empty{color:var(--dim);font-style:italic}
+#door{background:none;border:0;color:var(--dim);font:inherit;cursor:pointer;padding:0 .3rem}
+#door:hover{color:var(--blue)}
+
+/* admin */
+#admin{position:fixed;inset:0;z-index:9;background:rgba(10,14,12,.6);overflow-y:auto;padding:1rem}
+#admin[hidden]{display:none}
+.pnl{max-width:34rem;margin:2vh auto;background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:1.2rem;font-family:var(--sans)}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.pnl label{display:block;margin:.7rem 0 .2rem;font-size:.9rem;color:var(--dim)}
+.pnl input,.pnl textarea,.pnl select{width:100%;font:inherit;font-size:1rem;background:var(--bg);color:var(--ink);border:1px solid var(--ink);padding:.45rem .6rem}
+.pnl textarea{min-height:8rem}
+.pnl button{font:inherit;background:var(--ink);color:var(--bg);border:0;padding:.5rem 1rem;margin-top:.8rem;cursor:pointer}
+.pnl button.ghost{background:none;color:var(--ink);border:1px solid var(--ink)}
+.pnl .row{display:flex;gap:.5rem;flex-wrap:wrap}
+.pnl h4{margin:1.4rem 0 .3rem}
+.pnl ul{list-style:none;margin:0;padding:0}
+.pnl li{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px dashed var(--dim)}
+.pnl li button{margin:0;padding:.1rem .5rem;background:none;color:var(--ink);border:1px solid var(--ink)}
+#pmsg{min-height:1.5em;margin-top:.8rem;color:var(--blue)}
+
+/* switch */
+#sw{position:fixed;right:max(1rem,env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));font:inherit;font-size:.95rem;background:var(--ink);color:var(--bg);border:0;border-radius:2rem;padding:.65rem 1.1rem;cursor:pointer;z-index:5}
+#sw:hover{background:var(--blue);color:#fff}
+#cap{min-height:1.5em}
+
+@media (max-width:720px){
+  body{font-size:1.05rem}
+  .intro,.where,.fr{margin-left:0}
+  .bench{grid-template-columns:1fr}
+  .tag:nth-child(2){transform:rotate(1.1deg)}
+  .shelf,.post{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
-
 <body>
-
-<div class="page">
-
-    <!-- TOP -->
-
-    <header class="topbar">
-
-        <a href="#" class="identity">
-            <span class="identity-mark"></span>
-
-            <span class="handle">
-                oPinqzz
-            </span>
-
-            <span>
-                / Abdelrahman
-            </span>
-        </a>
-
-        <nav class="top-right">
-            <a href="#about">about</a>
-            <a href="#projects">things</a>
-            <a href="https://github.com/PixalsNetwork" target="_blank">
-                github ↗
-            </a>
-        </nav>
-
-    </header>
-
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-inner">
-
-            <div>
-
-                <div class="tiny">
-                    // personal file, apparently
-                </div>
-
-                <h1>
-                    I'm<br>
-                    <span class="outline">Abdel</span>rahman.
-                </h1>
-
-                <p class="hero-description">
-                    I like understanding things.
-                    <strong>Computers, software, systems, people,
-                    languages, and whatever else manages to become
-                    interesting.</strong>
-                    Sometimes that curiosity turns into a project.
-                </p>
-
-                <div class="scroll-hint">
-                    <span class="scroll-line"></span>
-                    keep going. there is no particular reason.
-                </div>
-
-            </div>
-
-
-            <aside class="hero-side">
-
-                <div class="hero-side-title">
-                    CURRENTLY
-                </div>
-
-                learning software<br>
-                building Pixals<br>
-                developing Netherrack~ in a way...<br>
-                learning French<br>
-                reading things<br>
-                thinking too much about systems
-
-                <br><br>
-
-                <span class="status">
-                    ● probably building something
-                </span>
-
-            </aside>
-
-        </div>
-
-    </section>
-
-
-    <!-- TICKER -->
-
-    <!-- ABOUT -->
-
-    <section class="about" id="about">
-
-        <div class="about-grid">
-
-            <div>
-
-                <div class="section-number">
-                    01 / WHO
-                </div>
-
-                <h2>
-                    So what<br>
-                    am I like?
-                </h2>
-
-            </div>
-
-
-            <div>
-
-                <div class="about-text">
-
-                    <p>
-                        I've spent a ridiculous amount of time around
-                        computers and the internet. Not because I had some
-                        carefully designed career plan, but because I kept
-                        wondering how things worked.
-                    </p>
-
-                    <p>
-                        Minecraft was one of the places where that curiosity
-                        became practical. I started making things, then
-                        started making the things underneath those things.
-                    </p>
-
-                    <p>
-                        These days I'm interested in software, backend
-                        systems, networking, infrastructure, languages,
-                        and generally figuring out what is happening
-                        underneath the surface.
-                    </p>
-
-                </div>
-
-
-                <div class="little-things">
-
-                    <span class="little-thing">software</span>
-                    <span class="little-thing">backend</span>
-                    <span class="little-thing">networking</span>
-                    <span class="little-thing">Linux</span>
-                    <span class="little-thing">PHP</span>
-                    <span class="little-thing">TypeScript</span>
-                    <span class="little-thing">Minecraft</span>
-                    <span class="little-thing">French</span>
-                    <span class="little-thing">books</span>
-                    <span class="little-thing">curiosity</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- PROJECTS -->
-
-    <section class="projects" id="projects">
-
-        <div class="projects-intro">
-
-            <div>
-
-                <div class="section-number">
-                    02 / THINGS I MADE
-                </div>
-
-                <h2>
-                    A few<br>
-                    rabbit holes.
-                </h2>
-
-            </div>
-
-            <p class="projects-subtitle">
-                These aren't presented as a list of achievements.
-                They're just some of the things I've spent time making
-                because I wanted to see if I could.
-            </p>
-
-        </div>
-
-
-        <div class="project-list">
-
-
-            <!-- PIXALS -->
-
-            <a
-                class="project"
-                href="https://pixalsnetwork.net"
-                target="_blank"
-            >
-
-                <div class="project-number">
-                    01
-                </div>
-
-                <div>
-
-                    <h3>
-                        Pixals
-                    </h3>
-
-                    <p class="project-description">
-                        A Minecraft network and software ecosystem I've
-                        been building for years. What began as a server
-                        became a place to experiment with infrastructure,
-                        systems, networking and software architecture.
-                    </p>
-
-                </div>
-
-                <div class="project-meta">
-
-                    <span class="active">
-                        ● ACTIVE
-                    </span>
-
-                    <br>
-
-                    pixalsnetwork.net ↗
-
-                </div>
-
-            </a>
-
-
-            <!-- NETHERRACK -->
-
-            <a
-                class="project"
-                href="https://github.com/PixalsNetwork/Netherrack"
-                target="_blank"
-            >
-
-                <div class="project-number">
-                    02
-                </div>
-
-                <div>
-
-                    <h3>
-                        Netherrack
-                    </h3>
-
-                    <p class="project-description">
-                        A lightweight Minecraft Bedrock PHP proxy.
-                        It started as a networking problem and turned
-                        into a rather deep dive into connections,
-                        packets and how the Bedrock protocol actually
-                        behaves.
-                    </p>
-
-                </div>
-
-                <div class="project-meta">
-
-                    <span class="active">
-                        ● BUILDING
-                    </span>
-
-                    <br>
-
-                    GitHub ↗
-
-                </div>
-
-            </a>
-
-
-            <!-- EXPERIMENTS -->
-
-            <div class="project">
-
-                <div class="project-number">
-                    03
-                </div>
-
-                <div>
-
-                    <h3>
-                        The experiments
-                    </h3>
-
-                    <p class="project-description">
-                        Small programs, abandoned ideas, experiments,
-                        bugs that became features, features that became
-                        bugs, and random technical rabbit holes.
-                        Not everything needs a public repository.
-                    </p>
-
-                </div>
-
-                <div class="project-meta">
-
-                    SOMETIMES<br>
-                    PRIVATE
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- TERMINAL -->
-
-    <section class="terminal-section">
-
-        <div class="terminal-label">
-            03 / YOU FOUND THE UNNECESSARY TERMINAL
-        </div>
-
-
-        <div class="terminal">
-
-            <div class="terminal-header">
-
-                <span class="terminal-dot"></span>
-                <span class="terminal-dot"></span>
-                <span class="terminal-dot"></span>
-
-                <span class="terminal-title">
-                    abdelrahman@life: ~
-                </span>
-
-            </div>
-
-
-            <div
-                class="terminal-body"
-                id="terminal"
-            >
-
-                <div>
-                    <span class="prompt">$</span>
-                    help
-                </div>
-
-                <div class="terminal-output">
-                    commands:
-                    <strong>whoami</strong> ·
-                    <strong>projects</strong> ·
-                    <strong>why</strong> ·
-                    <strong>random</strong> ·
-                    <strong>clear</strong>
-                </div>
-
-
-                <div class="command-line">
-
-                    <span class="prompt">
-                        $&nbsp;
-                    </span>
-
-                    <input
-                        id="command"
-                        autocomplete="off"
-                        spellcheck="false"
-                    >
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- END -->
-
-    <section class="ending">
-
-        <div class="ending-grid">
-
-            <h2>
-                anyway,<br>
-                that's<br>
-                <span>me.</span>
-            </h2>
-
-
-            <div class="ending-side">
-
-                If you somehow got this far:
-
-                <br><br>
-
-                <a
-                    href="https://github.com/PixalsNetwork"
-                    target="_blank"
-                >
-                    github ↗
-                </a>
-
-                <br>
-
-                <a
-                    href="https://pixalsnetwork.net"
-                    target="_blank"
-                >
-                    Pixals ↗
-                </a>
-
-                <br><br>
-
-                no newsletter.<br>
-                no productivity funnel.<br>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <footer>
-
-        <span>
-            © 2026 Abdelrahman / oPinqzz
-        </span>
-
-        <span>
-            made with HTML, CSS & unnecessary curiosity, Using AI
-        </span>
-
-    </footer>
-
+<header class="nav"><nav aria-label="Site">
+  <a class="face" href="#top" aria-label="oPinqzz, top of page"></a>
+  <a href="#workbench">workbench</a><a href="#francais">français</a><a href="#books">books</a><a href="#writing">writing</a>
+</nav></header>
+<div class="wrap" id="top">
+
+<main>
+<h1 class="u">Comment ça marche&nbsp;?</h1>
+<p class="gloss">(how does it work?)</p>
+
+<p class="intro u">That's the question I ask about most things. I'm Abdelrahman, oPinqzz online, and I've spent most of my life near computers and the internet, mostly trying to find out what is going on inside them.</p>
+<p class="intro"><span class="u">There's a button in the corner. Press it, or click any paragraph, and you'll see what these words are made of underneath.</span> <span class="small" id="cap"></span></p>
+
+<h2 class="u">Where it started</h2>
+<div class="where">
+  <p class="u">Minecraft. It was a game, and then at some point I stopped only playing it and started wondering how it worked.</p>
+  <p class="u">That wondering never went away. It just moved lower: from the game, to the server, to the network, to what the connection is actually saying. These days I like backends, networking and infrastructure, the unglamorous machinery everything else stands on.</p>
+</div>
+
+<h2 class="u" id="workbench">Currently on the workbench</h2>
+<div class="bench">
+  <article class="tag">
+    <h3>Pixals</h3>
+    <p class="u">A Minecraft network I've been building for years. It began as a server and grew into a larger pile of software and infrastructure. I'm not the person behind the minigames; my part is the wider thing: software, infrastructure, networking, and whatever I end up building myself.</p>
+    <span class="stamp">still going</span> &nbsp; <a href="https://pixalsnetwork.net">pixalsnetwork.net</a>
+  </article>
+  <article class="tag">
+    <h3>Netherrack</h3>
+    <p class="u">A lightweight Minecraft Bedrock proxy, written in PHP. Mostly an excuse to sit with connections, packets and the Bedrock protocol until they make sense.</p>
+    <span class="stamp">on the bench</span> &nbsp; <a href="https://github.com/PixalsNetwork/Netherrack">on GitHub</a>
+  </article>
+</div>
+
+<h2 class="u" id="francais">Also: languages, and books</h2>
+<div class="fr">
+  <p class="u">I read, and I like languages, which is why this site opens in French. I'm learning it. Click the card for some phrases I'm getting to know.</p>
+  <button class="card" id="card" type="button" aria-live="polite"><b>Je suis en train d'apprendre.</b><span>I'm in the middle of learning.</span></button>
+</div>
+
+<h2 id="books">Books I've finished</h2>
+<ul class="shelf" id="shelf"></ul>
+
+<h2 id="writing">Things I've written down</h2>
+<div id="posts"></div>
+
+<div class="end">
+  <p class="big u">Comment ça marche&nbsp;? That's the whole website. That's also most of me.</p>
+  <div class="links"><a href="https://github.com/PixalsNetwork/Netherrack">github</a><a href="https://pixalsnetwork.net">pixals</a></div>
+  <p class="small">No cookies, no newsletter, no funnel. Made by hand.<button id="door" type="button" aria-label="Open admin panel">·</button></p>
+</div>
+</main>
 </div>
 
 
+<section id="admin" hidden aria-label="Admin panel"><div class="pnl">
+  <div class="ph"><b>the back room</b><button class="ghost" id="pclose" type="button" style="margin:0">close</button></div>
+  <form id="login">
+    <p class="small">No password lives in this site. Log in with a GitHub token that can write to this repo; it stays in your browser only.</p>
+    <label for="lo">Repo owner</label><input id="lo" required autocomplete="off">
+    <label for="lr">Repo name</label><input id="lr" required autocomplete="off">
+    <label for="lb">Branch</label><input id="lb" value="main" required autocomplete="off">
+    <label for="lt">Token</label><input id="lt" type="password" required autocomplete="off">
+    <label><input id="lk" type="checkbox" style="width:auto"> remember on this device</label>
+    <button type="submit">log in</button>
+  </form>
+  <div id="ed" hidden>
+    <h4>Add a book</h4>
+    <form id="fb">
+      <label for="bt">Title</label><input id="bt" required>
+      <label for="ba">Author</label><input id="ba">
+      <label for="bn">One line about it (optional)</label><input id="bn">
+      <button type="submit">add book</button>
+    </form>
+    <h4>Write a post</h4>
+    <form id="fp">
+      <label for="pt">Title</label><input id="pt" required>
+      <label for="pb">Text (blank line = new paragraph)</label><textarea id="pb" required></textarea>
+      <button type="submit">add post</button>
+    </form>
+    <h4>Already there</h4><ul id="lst"></ul>
+    <div class="row"><button type="button" class="ghost" id="lout">log out</button></div>
+  </div>
+  <p id="pmsg" role="status"></p>
+</div></section>
+
+<button id="sw" type="button" aria-pressed="false">look underneath</button>
+
 <script>
+(function(){
+  var enc=new TextEncoder();
+  function hex(s){return Array.from(enc.encode(s)).map(function(b){return b.toString(16).padStart(2,'0')}).join(' ')}
+  var us=Array.prototype.slice.call(document.querySelectorAll('.u'));
+  us.forEach(function(e){
+    var t=e.textContent.replace(/\s+/g,' ').trim();
+    e.textContent='';
+    var o=document.createElement('span');o.className='o';o.textContent=t;
+    var h=document.createElement('span');h.className='h';h.setAttribute('aria-hidden','true');h.textContent=hex(t);
+    e.appendChild(o);e.appendChild(h);
+    e.addEventListener('click',function(){e.classList.toggle('x')});
+  });
+  var sw=document.getElementById('sw'),cap=document.getElementById('cap'),on=false;
+  sw.addEventListener('click',function(){
+    on=!on;
+    us.forEach(function(e){e.classList.toggle('x',on)});
+    document.body.classList.toggle('all',on);
+    sw.setAttribute('aria-pressed',on);
+    sw.textContent=on?'come back up':'look underneath';
+    cap.textContent=on?'utf-8: every letter is a number. the rest is agreement.':'';
+  });
+  var phrases=[
+    ["Je suis en train d'apprendre.","I'm in the middle of learning."],
+    ["Ça marche.","Works for me. (Also: it works.)"],
+    ["Pourquoi pas ?","Why not?"],
+    ["Je ne sais pas encore.","I don't know yet."]
+  ],i=0,card=document.getElementById('card');
+  card.addEventListener('click',function(){
+    i=(i+1)%phrases.length;
+    card.querySelector('b').textContent=phrases[i][0];
+    card.querySelector('span').textContent=phrases[i][1];
+  });
 
-    /*
-        Tiny terminal.
-        Because obviously the portfolio needed one.
-    */
-
-    const terminal = document.getElementById("terminal");
-    const command = document.getElementById("command");
-
-    const answers = {
-
-        whoami:
-            "Abdelrahman. Online: oPinqzz. Builder, student, software enthusiast, founder of Pixals.",
-
-        projects:
-            "Pixals. Netherrack. Several smaller experiments that currently live somewhere between 'idea' and 'why did I make this?'.",
-
-        why:
-            "Because understanding how something works is usually more interesting than simply using it.",
-
-        random:
-            "Fun fact: this terminal serves absolutely no important purpose.",
-
-        help:
-            "commands: whoami · projects · why · random · clear"
-
-    };
-
-
-    command.addEventListener("keydown", function (event) {
-
-        if (event.key !== "Enter") {
-            return;
-        }
-
-
-        const value = command.value.trim().toLowerCase();
-
-
-        const entered = document.createElement("div");
-
-        entered.innerHTML =
-            '<span class="prompt">$</span> ' +
-            escapeHTML(value);
-
-        terminal.insertBefore(
-            entered,
-            command.parentElement
-        );
-
-
-        if (value === "clear") {
-
-            terminal.innerHTML = "";
-
-        } else {
-
-            const response =
-                document.createElement("div");
-
-            response.className =
-                "terminal-output";
-
-            response.textContent =
-                answers[value] ||
-                "command not found. You came here expecting Linux, didn't you?";
-
-            terminal.insertBefore(
-                response,
-                command.parentElement
-            );
-
-        }
-
-
-        command.value = "";
-
-        command.focus();
-
+  /* ---- content: data.json, rendered safely ---- */
+  var DATA={books:[],posts:[]},$=function(id){return document.getElementById(id)};
+  function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n}
+  function render(){
+    var sh=$('shelf'),ps=$('posts');sh.textContent='';ps.textContent='';
+    if(!DATA.books.length){var li=el('li','empty','Nothing on the shelf yet. Books will show up here.');sh.appendChild(li)}
+    DATA.books.slice().reverse().forEach(function(b){
+      var li=el('li');li.appendChild(el('b','',b.title));
+      var m=[];if(b.author)m.push('by '+b.author);if(b.date)m.push(b.date);
+      if(m.length)li.appendChild(el('span','small',m.join(', ')));
+      if(b.note)li.appendChild(el('p','',b.note));
+      sh.appendChild(li);
     });
+    if(!DATA.posts.length)ps.appendChild(el('p','empty post','Nothing written down yet.'));
+    DATA.posts.slice().reverse().forEach(function(p){
+      var a=el('article','post');a.appendChild(el('h3','',p.title));a.appendChild(el('p','small',p.date||''));
+      String(p.body||'').split(/\n\s*\n/).forEach(function(t){if(t.trim())a.appendChild(el('p','',t.trim()))});
+      ps.appendChild(a);
+    });
+  }
+  fetch('data.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){
+    if(d&&Array.isArray(d.books)&&Array.isArray(d.posts))DATA=d;render();
+  }).catch(render);
 
-
-    function escapeHTML(value) {
-
-        return value
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-
-    }
-
+  /* ---- admin: GitHub API, no server, no database ---- */
+  var adm=$('admin'),msg=$('pmsg'),cfg=null,sha=null;
+  function say(t){msg.textContent=t||''}
+  function open(){
+    adm.hidden=false;
+    var h=location.hostname,o='',r='',seg=location.pathname.split('/')[1];
+    if(/\.github\.io$/.test(h)){o=h.split('.')[0];r=(seg&&seg!=='index.html')?seg:h}
+    var saved=JSON.parse(localStorage.getItem('opq_cfg')||'null');
+    if(saved){o=saved.o;r=saved.r;$('lb').value=saved.b}
+    $('lo').value=o;$('lr').value=r;
+    var tk=sessionStorage.getItem('opq_tk')||localStorage.getItem('opq_tk');
+    if(tk){$('lt').value=tk;}
+    $('lo').focus();
+  }
+  function close(){adm.hidden=true;if(location.hash==='#admin')history.replaceState(null,'',location.pathname)}
+  function gh(path,opts){
+    opts=opts||{};opts.headers={Authorization:'Bearer '+cfg.t,Accept:'application/vnd.github+json'};
+    return fetch('https://api.github.com/repos/'+cfg.o+'/'+cfg.r+path,opts);
+  }
+  function b64(s){var by=new TextEncoder().encode(s),o='';by.forEach(function(x){o+=String.fromCharCode(x)});return btoa(o)}
+  function unb64(s){var bin=atob(s.replace(/\s/g,'')),a=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new TextDecoder().decode(a)}
+  function listing(){
+    var ul=$('lst');ul.textContent='';
+    [['books','title'],['posts','title']].forEach(function(k){
+      DATA[k[0]].forEach(function(it){
+        var li=el('li');li.appendChild(el('span','',k[0]==='books'?'book: '+it.title:'post: '+it.title));
+        var d=el('button','','remove');d.type='button';
+        d.addEventListener('click',function(){
+          if(!confirm('Remove "'+it.title+'"?'))return;
+          DATA[k[0]]=DATA[k[0]].filter(function(x){return x.id!==it.id});save('Removed.');
+        });
+        li.appendChild(d);ul.appendChild(li);
+      });
+    });
+  }
+  function save(ok){
+    say('saving to GitHub…');
+    var body={message:'update data.json from the back room',content:b64(JSON.stringify(DATA,null,2)+'\n'),branch:cfg.b};
+    if(sha)body.sha=sha;
+    return gh('/contents/data.json',{method:'PUT',body:JSON.stringify(body)}).then(function(r){
+      if(!r.ok)throw new Error(r.status===409||r.status===422?'out of sync, log in again to reload':'GitHub said '+r.status);
+      return r.json();
+    }).then(function(j){sha=j.content.sha;render();listing();say((ok||'Saved.')+' The live site updates in about a minute.')})
+    .catch(function(e){say('Could not save: '+e.message)});
+  }
+  $('login').addEventListener('submit',function(e){
+    e.preventDefault();
+    cfg={o:$('lo').value.trim(),r:$('lr').value.trim(),b:$('lb').value.trim(),t:$('lt').value.trim()};
+    say('checking…');
+    gh('').then(function(r){
+      if(r.status===401)throw new Error('token rejected');
+      if(r.status===404)throw new Error('repo not found (or the token cannot see it)');
+      return r.json();
+    }).then(function(j){
+      if(!j.permissions||!j.permissions.push)throw new Error('this token cannot write to the repo');
+      localStorage.setItem('opq_cfg',JSON.stringify({o:cfg.o,r:cfg.r,b:cfg.b}));
+      (($('lk').checked)?localStorage:sessionStorage).setItem('opq_tk',cfg.t);
+      return gh('/contents/data.json?ref='+encodeURIComponent(cfg.b));
+    }).then(function(r){
+      if(r.status===404){sha=null;return null}
+      if(!r.ok)throw new Error('GitHub said '+r.status);
+      return r.json();
+    }).then(function(j){
+      if(j){sha=j.sha;var d=JSON.parse(unb64(j.content));if(Array.isArray(d.books)&&Array.isArray(d.posts))DATA=d}
+      $('login').hidden=true;$('ed').hidden=false;render();listing();say('In. Add something.');
+    }).catch(function(err){say('Login failed: '+err.message)});
+  });
+  function today(){return new Date().toISOString().slice(0,10)}
+  function uid(){return Date.now().toString(36)}
+  $('fb').addEventListener('submit',function(e){
+    e.preventDefault();
+    DATA.books.push({id:uid(),title:$('bt').value.trim(),author:$('ba').value.trim(),note:$('bn').value.trim(),date:today()});
+    save('Book added.').then(function(){e.target.reset()});
+  });
+  $('fp').addEventListener('submit',function(e){
+    e.preventDefault();
+    DATA.posts.push({id:uid(),title:$('pt').value.trim(),body:$('pb').value.trim(),date:today()});
+    save('Post added.').then(function(){e.target.reset()});
+  });
+  $('lout').addEventListener('click',function(){
+    sessionStorage.removeItem('opq_tk');localStorage.removeItem('opq_tk');cfg=null;
+    $('lt').value='';$('ed').hidden=true;$('login').hidden=false;say('Logged out.');
+  });
+  $('door').addEventListener('click',open);
+  $('pclose').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!adm.hidden)close()});
+  if(location.hash==='#admin')open();
+  window.addEventListener('hashchange',function(){if(location.hash==='#admin')open()});
+  console.log('comment ça marche ? you looked. good.');
+})();
 </script>
-
 </body>
 </html>
