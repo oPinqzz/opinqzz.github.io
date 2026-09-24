@@ -1,26 +1,4 @@
 {
-  "books": [
-    {
-      "id": "mufwjgp1",
-      "title": "Atomic Habits",
-      "author": "James Clear",
-      "note": "if you used this book in a way where you absorb it, you will build habits as a system",
-      "date": "2026-09-24"
-    },
-    {
-      "id": "mufwl42z",
-      "title": "Zero to One",
-      "author": "Peter Thiel",
-      "note": "want to find an answer to our hard question, \" what is a valuable company no one is building ? \", you might find it there",
-      "date": "2026-09-24"
-    }
-  ],
-  "posts": [
-    {
-      "id": "mufwn11v",
-      "title": "How to mess up a networking project.",
-      "body": "Well, Netherrack has started to avoid the java pain of  WaterDogPE, no offense to PHP Devs, I'm one of them, but really we can't comprehend your amazing Java Technology, we would like to stick to a harder approach, writing our own Proxy, and stargate is another level of pain, and Obsidian By Netherrack is the only hope to fix it.",
-      "date": "2026-09-24"
-    }
-  ]
+  "books": [],
+  "posts": []
 }

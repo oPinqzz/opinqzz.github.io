@@ -5,117 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>comment ça marche ? — oPinqzz</title>
 <meta name="description" content="Abdelrahman, online as oPinqzz. A small corner of the internet about how things work.">
-<style>
-:root{
-  --bg:#e4e8dc;--paper:#f5f6ef;--ink:#141b17;--dim:#59645b;--blue:#2437ff;
-  --sans:"Gill Sans","Gill Sans MT","Trebuchet MS",Verdana,sans-serif;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.15rem;line-height:1.6;transition:background .3s,color .3s}
-body.all{--bg:#0f1512;--paper:#18211c;--ink:#b9f2cd;--dim:#6f9580;--blue:#8f9bff;font-family:var(--mono)}
-::selection{background:var(--blue);color:var(--bg)}
-a{color:inherit;text-decoration-color:var(--blue);text-decoration-thickness:2px;text-underline-offset:.2em}
-a:hover{color:var(--blue)}
-:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-.wrap{max-width:60rem;margin:0 auto;padding:1.25rem clamp(1.1rem,5vw,3rem) 6rem}
-.small{font-size:.85rem;color:var(--dim)}
-.u{cursor:help}
-.u .h{display:none;word-break:break-all;font-family:var(--mono);font-size:.8em;line-height:1.5}
-.u.x .h{display:inline}
-.u.x .o{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-
-h1{margin:clamp(3rem,12vh,7rem) 0 .25rem;font-size:clamp(3rem,12.5vw,9.5rem);line-height:.92;letter-spacing:-.045em;font-weight:800}
-h1.x{font-size:clamp(1.3rem,4vw,2.2rem);letter-spacing:0;line-height:1.4}
-.gloss{margin:0 0 clamp(2.5rem,8vh,5rem);font-size:1.3rem;color:var(--blue)}
-.intro{max-width:34rem;margin:0 0 0 clamp(0rem,14vw,10rem);font-size:1.3rem}
-.intro+.intro{color:var(--dim);font-size:1.15rem}
-
-h2{margin:clamp(4rem,12vh,8rem) 0 1.25rem;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.1;letter-spacing:-.02em}
-.where{max-width:32rem;margin-left:clamp(0rem,22vw,16rem)}
-.where p{margin:0 0 1em}
-
-/* workbench */
-.bench{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem 3rem;align-items:start}
-.tag{position:relative;background:var(--paper);border:2px solid var(--ink);padding:2.6rem 1.4rem 1.4rem;transform:rotate(-1.4deg);transition:transform .2s}
-.tag:nth-child(2){transform:rotate(1.1deg) translateY(2.5rem)}
-.tag:hover{transform:rotate(0) translateY(-4px)}
-.tag::before{content:"";position:absolute;top:.8rem;left:50%;margin-left:-.5rem;width:1rem;height:1rem;border-radius:50%;border:2px solid var(--ink);background:var(--bg)}
-.tag h3{margin:0 0 .4rem;font-size:2rem;letter-spacing:-.03em;line-height:1}
-.tag p{margin:.4rem 0 .9rem}
-.stamp{display:inline-block;border:2px solid var(--blue);color:var(--blue);padding:.05rem .5rem;font-family:var(--mono);font-size:.8rem;transform:rotate(-3deg)}
-
-/* french */
-.fr{max-width:36rem;margin-left:clamp(0rem,8vw,6rem)}
-.card{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-left:6px solid var(--blue);padding:.2rem 0 .2rem 1.2rem;cursor:pointer}
-.card b{display:block;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.15;letter-spacing:-.02em}
-.card span{display:block;color:var(--dim);margin-top:.3rem}
-.card:hover b{color:var(--blue)}
-
-/* end */
-.end{margin-top:clamp(5rem,16vh,10rem)}
-.end p.big{margin:0;font-size:clamp(2rem,7vw,4.6rem);line-height:1.05;letter-spacing:-.035em;font-weight:800;max-width:14em}
-.links{display:flex;gap:2rem;flex-wrap:wrap;margin:2rem 0 1.5rem;font-size:1.3rem}
-
-/* nav */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:4;display:flex;justify-content:center;padding:.75rem 1rem 0;pointer-events:none}
-.nav nav{pointer-events:auto;display:flex;align-items:center;gap:.25rem;max-width:100%;background:var(--paper);border:2px solid var(--ink);border-radius:2rem;padding:.3rem .4rem .3rem .9rem;overflow-x:auto;scrollbar-width:none}
-.nav nav::-webkit-scrollbar{display:none}
-.face{font-family:var(--mono);font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap;margin-right:.4rem}
-.face::after{content:"(•‿•)"}
-.face:hover::after{content:"(•o•)"}
-.nav a:not(.face){font-size:.95rem;text-decoration:none;padding:.3rem .75rem;border-radius:1.5rem;white-space:nowrap}
-.nav a:not(.face):hover{background:var(--blue);color:#fff}
-
-/* shelf + writing */
-.shelf{list-style:none;margin:0;padding:0;max-width:36rem;margin-left:clamp(0rem,14vw,10rem)}
-.shelf li{padding:.9rem 0;border-bottom:1px dashed var(--dim)}
-.shelf b{font-size:1.25rem}.shelf .small{display:block}
-.shelf p{margin:.3rem 0 0}
-.post{max-width:36rem;margin-left:clamp(0rem,8vw,6rem);padding-bottom:1.5rem}
-.post h3{margin:0;font-size:1.6rem;letter-spacing:-.02em}
-.empty{color:var(--dim);font-style:italic}
-#door{background:none;border:0;color:var(--dim);font:inherit;cursor:pointer;padding:0 .3rem}
-#door:hover{color:var(--blue)}
-
-/* admin */
-#admin{position:fixed;inset:0;z-index:9;background:rgba(10,14,12,.6);overflow-y:auto;padding:1rem}
-#admin[hidden]{display:none}
-.pnl{max-width:34rem;margin:2vh auto;background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:1.2rem;font-family:var(--sans)}
-.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-.pnl label{display:block;margin:.7rem 0 .2rem;font-size:.9rem;color:var(--dim)}
-.pnl input,.pnl textarea,.pnl select{width:100%;font:inherit;font-size:1rem;background:var(--bg);color:var(--ink);border:1px solid var(--ink);padding:.45rem .6rem}
-.pnl textarea{min-height:8rem}
-.pnl button{font:inherit;background:var(--ink);color:var(--bg);border:0;padding:.5rem 1rem;margin-top:.8rem;cursor:pointer}
-.pnl button.ghost{background:none;color:var(--ink);border:1px solid var(--ink)}
-.pnl .row{display:flex;gap:.5rem;flex-wrap:wrap}
-.pnl h4{margin:1.4rem 0 .3rem}
-.pnl ul{list-style:none;margin:0;padding:0}
-.pnl li{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px dashed var(--dim)}
-.pnl li button{margin:0;padding:.1rem .5rem;background:none;color:var(--ink);border:1px solid var(--ink)}
-#pmsg{min-height:1.5em;margin-top:.8rem;color:var(--blue)}
-
-/* switch */
-#sw{position:fixed;right:max(1rem,env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));font:inherit;font-size:.95rem;background:var(--ink);color:var(--bg);border:0;border-radius:2rem;padding:.65rem 1.1rem;cursor:pointer;z-index:5}
-#sw:hover{background:var(--blue);color:#fff}
-#cap{min-height:1.5em}
-
-@media (max-width:720px){
-  body{font-size:1.05rem}
-  .intro,.where,.fr{margin-left:0}
-  .bench{grid-template-columns:1fr}
-  .tag:nth-child(2){transform:rotate(1.1deg)}
-  .shelf,.post{margin-left:0}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="home">
 <header class="nav"><nav aria-label="Site">
   <a class="face" href="#top" aria-label="oPinqzz, top of page"></a>
-  <a href="#workbench">workbench</a><a href="#francais">français</a><a href="#books">books</a><a href="#writing">writing</a>
+  <a href="#workbench">workbench</a><a href="#francais">français</a><a href="books.html">books</a><a href="writing.html">writing</a>
 </nav></header>
 <div class="wrap" id="top">
 
@@ -152,12 +47,6 @@ h2{margin:clamp(4rem,12vh,8rem) 0 1.25rem;font-size:clamp(1.6rem,4vw,2.4rem);lin
   <button class="card" id="card" type="button" aria-live="polite"><b>Je suis en train d'apprendre.</b><span>I'm in the middle of learning.</span></button>
 </div>
 
-<h2 id="books">Books I've finished</h2>
-<ul class="shelf" id="shelf"></ul>
-
-<h2 id="writing">Things I've written down</h2>
-<div id="posts"></div>
-
 <div class="end">
   <p class="big u">Comment ça marche&nbsp;? That's the whole website. That's also most of me.</p>
   <div class="links"><a href="https://github.com/PixalsNetwork/Netherrack">github</a><a href="https://pixalsnetwork.net">pixals</a></div>
@@ -167,36 +56,6 @@ h2{margin:clamp(4rem,12vh,8rem) 0 1.25rem;font-size:clamp(1.6rem,4vw,2.4rem);lin
 </div>
 
 
-<section id="admin" hidden aria-label="Admin panel"><div class="pnl">
-  <div class="ph"><b>the back room</b><button class="ghost" id="pclose" type="button" style="margin:0">close</button></div>
-  <form id="login">
-    <p class="small">No password lives in this site. Log in with a GitHub token that can write to this repo; it stays in your browser only.</p>
-    <label for="lo">Repo owner</label><input id="lo" required autocomplete="off">
-    <label for="lr">Repo name</label><input id="lr" required autocomplete="off">
-    <label for="lb">Branch</label><input id="lb" value="main" required autocomplete="off">
-    <label for="lt">Token</label><input id="lt" type="password" required autocomplete="off">
-    <label><input id="lk" type="checkbox" style="width:auto"> remember on this device</label>
-    <button type="submit">log in</button>
-  </form>
-  <div id="ed" hidden>
-    <h4>Add a book</h4>
-    <form id="fb">
-      <label for="bt">Title</label><input id="bt" required>
-      <label for="ba">Author</label><input id="ba">
-      <label for="bn">One line about it (optional)</label><input id="bn">
-      <button type="submit">add book</button>
-    </form>
-    <h4>Write a post</h4>
-    <form id="fp">
-      <label for="pt">Title</label><input id="pt" required>
-      <label for="pb">Text (blank line = new paragraph)</label><textarea id="pb" required></textarea>
-      <button type="submit">add post</button>
-    </form>
-    <h4>Already there</h4><ul id="lst"></ul>
-    <div class="row"><button type="button" class="ghost" id="lout">log out</button></div>
-  </div>
-  <p id="pmsg" role="status"></p>
-</div></section>
 
 <button id="sw" type="button" aria-pressed="false">look underneath</button>
 
@@ -234,120 +93,9 @@ h2{margin:clamp(4rem,12vh,8rem) 0 1.25rem;font-size:clamp(1.6rem,4vw,2.4rem);lin
     card.querySelector('span').textContent=phrases[i][1];
   });
 
-  /* ---- content: data.json, rendered safely ---- */
-  var DATA={books:[],posts:[]},$=function(id){return document.getElementById(id)};
-  function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n}
-  function render(){
-    var sh=$('shelf'),ps=$('posts');sh.textContent='';ps.textContent='';
-    if(!DATA.books.length){var li=el('li','empty','Nothing on the shelf yet. Books will show up here.');sh.appendChild(li)}
-    DATA.books.slice().reverse().forEach(function(b){
-      var li=el('li');li.appendChild(el('b','',b.title));
-      var m=[];if(b.author)m.push('by '+b.author);if(b.date)m.push(b.date);
-      if(m.length)li.appendChild(el('span','small',m.join(', ')));
-      if(b.note)li.appendChild(el('p','',b.note));
-      sh.appendChild(li);
-    });
-    if(!DATA.posts.length)ps.appendChild(el('p','empty post','Nothing written down yet.'));
-    DATA.posts.slice().reverse().forEach(function(p){
-      var a=el('article','post');a.appendChild(el('h3','',p.title));a.appendChild(el('p','small',p.date||''));
-      String(p.body||'').split(/\n\s*\n/).forEach(function(t){if(t.trim())a.appendChild(el('p','',t.trim()))});
-      ps.appendChild(a);
-    });
-  }
-  fetch('data.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){
-    if(d&&Array.isArray(d.books)&&Array.isArray(d.posts))DATA=d;render();
-  }).catch(render);
-
-  /* ---- admin: GitHub API, no server, no database ---- */
-  var adm=$('admin'),msg=$('pmsg'),cfg=null,sha=null;
-  function say(t){msg.textContent=t||''}
-  function open(){
-    adm.hidden=false;
-    var h=location.hostname,o='',r='',seg=location.pathname.split('/')[1];
-    if(/\.github\.io$/.test(h)){o=h.split('.')[0];r=(seg&&seg!=='index.html')?seg:h}
-    var saved=JSON.parse(localStorage.getItem('opq_cfg')||'null');
-    if(saved){o=saved.o;r=saved.r;$('lb').value=saved.b}
-    $('lo').value=o;$('lr').value=r;
-    var tk=sessionStorage.getItem('opq_tk')||localStorage.getItem('opq_tk');
-    if(tk){$('lt').value=tk;}
-    $('lo').focus();
-  }
-  function close(){adm.hidden=true;if(location.hash==='#admin')history.replaceState(null,'',location.pathname)}
-  function gh(path,opts){
-    opts=opts||{};opts.headers={Authorization:'Bearer '+cfg.t,Accept:'application/vnd.github+json'};
-    return fetch('https://api.github.com/repos/'+cfg.o+'/'+cfg.r+path,opts);
-  }
-  function b64(s){var by=new TextEncoder().encode(s),o='';by.forEach(function(x){o+=String.fromCharCode(x)});return btoa(o)}
-  function unb64(s){var bin=atob(s.replace(/\s/g,'')),a=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new TextDecoder().decode(a)}
-  function listing(){
-    var ul=$('lst');ul.textContent='';
-    [['books','title'],['posts','title']].forEach(function(k){
-      DATA[k[0]].forEach(function(it){
-        var li=el('li');li.appendChild(el('span','',k[0]==='books'?'book: '+it.title:'post: '+it.title));
-        var d=el('button','','remove');d.type='button';
-        d.addEventListener('click',function(){
-          if(!confirm('Remove "'+it.title+'"?'))return;
-          DATA[k[0]]=DATA[k[0]].filter(function(x){return x.id!==it.id});save('Removed.');
-        });
-        li.appendChild(d);ul.appendChild(li);
-      });
-    });
-  }
-  function save(ok){
-    say('saving to GitHub…');
-    var body={message:'update data.json from the back room',content:b64(JSON.stringify(DATA,null,2)+'\n'),branch:cfg.b};
-    if(sha)body.sha=sha;
-    return gh('/contents/data.json',{method:'PUT',body:JSON.stringify(body)}).then(function(r){
-      if(!r.ok)throw new Error(r.status===409||r.status===422?'out of sync, log in again to reload':'GitHub said '+r.status);
-      return r.json();
-    }).then(function(j){sha=j.content.sha;render();listing();say((ok||'Saved.')+' The live site updates in about a minute.')})
-    .catch(function(e){say('Could not save: '+e.message)});
-  }
-  $('login').addEventListener('submit',function(e){
-    e.preventDefault();
-    cfg={o:$('lo').value.trim(),r:$('lr').value.trim(),b:$('lb').value.trim(),t:$('lt').value.trim()};
-    say('checking…');
-    gh('').then(function(r){
-      if(r.status===401)throw new Error('token rejected');
-      if(r.status===404)throw new Error('repo not found (or the token cannot see it)');
-      return r.json();
-    }).then(function(j){
-      if(!j.permissions||!j.permissions.push)throw new Error('this token cannot write to the repo');
-      localStorage.setItem('opq_cfg',JSON.stringify({o:cfg.o,r:cfg.r,b:cfg.b}));
-      (($('lk').checked)?localStorage:sessionStorage).setItem('opq_tk',cfg.t);
-      return gh('/contents/data.json?ref='+encodeURIComponent(cfg.b));
-    }).then(function(r){
-      if(r.status===404){sha=null;return null}
-      if(!r.ok)throw new Error('GitHub said '+r.status);
-      return r.json();
-    }).then(function(j){
-      if(j){sha=j.sha;var d=JSON.parse(unb64(j.content));if(Array.isArray(d.books)&&Array.isArray(d.posts))DATA=d}
-      $('login').hidden=true;$('ed').hidden=false;render();listing();say('In. Add something.');
-    }).catch(function(err){say('Login failed: '+err.message)});
-  });
-  function today(){return new Date().toISOString().slice(0,10)}
-  function uid(){return Date.now().toString(36)}
-  $('fb').addEventListener('submit',function(e){
-    e.preventDefault();
-    DATA.books.push({id:uid(),title:$('bt').value.trim(),author:$('ba').value.trim(),note:$('bn').value.trim(),date:today()});
-    save('Book added.').then(function(){e.target.reset()});
-  });
-  $('fp').addEventListener('submit',function(e){
-    e.preventDefault();
-    DATA.posts.push({id:uid(),title:$('pt').value.trim(),body:$('pb').value.trim(),date:today()});
-    save('Post added.').then(function(){e.target.reset()});
-  });
-  $('lout').addEventListener('click',function(){
-    sessionStorage.removeItem('opq_tk');localStorage.removeItem('opq_tk');cfg=null;
-    $('lt').value='';$('ed').hidden=true;$('login').hidden=false;say('Logged out.');
-  });
-  $('door').addEventListener('click',open);
-  $('pclose').addEventListener('click',close);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!adm.hidden)close()});
-  if(location.hash==='#admin')open();
-  window.addEventListener('hashchange',function(){if(location.hash==='#admin')open()});
   console.log('comment ça marche ? you looked. good.');
 })();
 </script>
+<script src="site.js"></script>
 </body>
 </html>
