@@ -1,27 +1,875 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Abdelrahman Hazem Al-Nahas</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/x-icon" href="imgs/favicon.ico" />
-        <script src="https://kit.fontawesome.com/077a647940.js" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <div class="basic">
-            <div class="infotext">
-                <h1>Hi, I'm Abdelrahman Hazem Al-Nahas [ oPinqzz ]</h1>
-                <h2>I have been Weaving logic into Minecraft’s (Bedrock Edition) fabric For More Than 4 Years of Experience</h2>
-                <br>
-                <a href="https://github.com/iAbdo2008"><i class="fa-brands fa-github fa-2xl" id="github"></i></a>
-                <a href="https://instagram.com/opinqz.pixals"><i class="fa-brands fa-square-instagram fa-2xl" id="insta"></i></a>
-                <a href="https://youtube.com/@opinqz_"><i class="fa-brands fa-youtube fa-2xl" id="yt"></i></a>
-                <a href="https://pixalsnetwork.com/discord"><i class="fa-brands fa-discord fa-2xl" id="discord"></i></a>
-                <br>
-                <p id="cx">"I Don't Have that Much Time To Work on Website, or Design Expertise, Design taken from <a id="c" href="https://www.laith98.dev/">Latih's Website</a>"</p>
-            </div>
-            
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="imgs/favicon.ico" />
+
+    <title>Abdelrahman — Software Developer</title>
+
+    <style>
+        :root {
+            --background: #242424;
+            --surface: #2b2b2b;
+            --surface-light: #333333;
+            --border: #414141;
+
+            --accent: #c83d4a;
+            --accent-hover: #dc4b59;
+
+            --text: #f1efe9;
+            --muted: #aaa8a3;
+            --subtle: #777570;
+
+            --max-width: 1120px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           Navigation
+        ========================= */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            background: rgba(36, 36, 36, 0.88);
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid rgba(65, 65, 65, 0.65);
+        }
+
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: auto;
+            padding: 18px 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: -0.04em;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* =========================
+           General
+        ========================= */
+
+        .container {
+            max-width: var(--max-width);
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 110px 0;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 14px;
+        }
+
+        h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            letter-spacing: -0.05em;
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+
+        .section-description {
+            max-width: 620px;
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        /* =========================
+           Hero
+        ========================= */
+
+        .hero {
+            min-height: calc(100vh - 65px);
+
+            display: flex;
+            align-items: center;
+
+            padding: 100px 0;
+        }
+
+        .hero-content {
+            max-width: 820px;
+        }
+
+        .hero h1 {
+            font-size: clamp(54px, 9vw, 100px);
+            line-height: 0.95;
+            letter-spacing: -0.07em;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-description {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 36px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 12px 20px;
+            border-radius: 7px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            border: 1px solid var(--border);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .button.primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .button.secondary {
+            background: var(--surface);
+        }
+
+        .button.secondary:hover {
+            border-color: #666;
+        }
+
+        /* =========================
+           Projects
+        ========================= */
+
+        .projects-header {
+            margin-bottom: 48px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .project {
+            position: relative;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            padding: 30px;
+
+            min-height: 320px;
+
+            display: flex;
+            flex-direction: column;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            border-color: #5a5a5a;
+            background: var(--surface-light);
+        }
+
+        .project.featured {
+            grid-column: span 2;
+            min-height: 360px;
+        }
+
+        .project-number {
+            color: var(--subtle);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 35px;
+        }
+
+        .project h3 {
+            font-size: 30px;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+        }
+
+        .project p {
+            color: var(--muted);
+            max-width: 650px;
+            font-size: 15px;
+        }
+
+        .project-footer {
+            margin-top: auto;
+            padding-top: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+
+            color: var(--muted);
+
+            padding: 5px 9px;
+            border-radius: 5px;
+
+            font-size: 12px;
+        }
+
+        .project-link {
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .project-link:hover {
+            color: var(--accent-hover);
+        }
+
+        /* =========================
+           About
+        ========================= */
+
+        .about {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+        }
+
+        .about-text {
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .about-text p + p {
+            margin-top: 18px;
+        }
+
+        .stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stack-item {
+            padding: 17px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 7px;
+
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* =========================
+           Contact
+        ========================= */
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 680px;
+            margin: auto;
+        }
+
+        .contact h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            color: var(--muted);
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+
+        /* =========================
+           Footer
+        ========================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        footer p {
+            color: var(--subtle);
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* =========================
+           Responsive
+        ========================= */
+
+        @media (max-width: 760px) {
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 90px 0;
+            }
+
+            .hero h1 {
+                font-size: clamp(48px, 16vw, 75px);
+            }
+
+            .hero-description {
+                font-size: 17px;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .project.featured {
+                grid-column: span 1;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .project-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="logo">oPinqzz<span>.</span></a>
+
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-    </body>
+    </nav>
+
+
+    <!-- Hero -->
+    <main>
+
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+
+                    <div class="eyebrow">Software Developer / Builder</div>
+
+                    <h1>
+                        I build things<br>
+                        that <span>actually work.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        I'm Abdelrahman — a software developer and the founder
+                        of Pixals. I work on game infrastructure, backend
+                        systems, networking, and the occasional idea that
+                        probably should have been a weekend project.
+                    </p>
+
+                    <div class="buttons">
+                        <a href="#projects" class="button primary">
+                            View my projects
+                        </a>
+
+                        <a href="#contact" class="button secondary">
+                            Get in touch
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Projects -->
+        <section id="projects">
+            <div class="container">
+
+                <div class="projects-header">
+                    <div class="eyebrow">Selected work</div>
+
+                    <h2>Projects</h2>
+
+                    <p class="section-description">
+                        A few of the systems and projects I'm currently
+                        building or maintaining.
+                    </p>
+                </div>
+
+
+                <div class="projects">
+
+                    <!-- Pixals -->
+                    <article class="project featured">
+
+                        <div class="project-number">01 / NETWORK</div>
+
+                        <div>
+                            <h3>Pixals</h3>
+
+                            <p>
+                                A Minecraft network and software ecosystem
+                                focused on creating a clean, reliable,
+                                long-term multiplayer experience. Pixals
+                                includes custom game systems, infrastructure,
+                                networking tools, and its own development
+                                ecosystem.
+                            </p>
+                        </div>
+
+                        <div class="project-footer">
+
+                            <div class="tags">
+                                <span class="tag">PHP</span>
+                                <span class="tag">PMMP</span>
+                                <span class="tag">Minecraft</span>
+                                <span class="tag">Backend</span>
+                                <span class="tag">Infrastructure</span>
+                            </div>
+
+                            <a
+                                href="https://pixalsnetwork.net"
+                                target="_blank"
+                                class="project-link"
+                            >
+                                Visit Pixals ↗
+                            </a>
+
+                        </div>
+                    </article>
+
+
+                    <!-- Netherrack -->
+                    <article class="project">
+
+                        <div class="project-number">02 / NETWORKING</div>
+
+                        <div>
+                            <h3>Netherrack</h3>
+
+                            <p>
+                                A lightweight, fast and easy-to-use Minecraft
+                                Bedrock PHP proxy designed to sit between
+                                players and backend servers.
+                            </p>
+                        </div>
+
+                        <div class="project-footer">
+
+                            <div class="tags">
+                                <span class="tag">PHP</span>
+                                <span class="tag">Bedrock</span>
+                                <span class="tag">Proxy</span>
+                                <span class="tag">Networking</span>
+                            </div>
+
+                            <a
+                                href="https://github.com/PixalsNetwork/Netherrack"
+                                target="_blank"
+                                class="project-link"
+                            >
+                                GitHub ↗
+                            </a>
+
+                        </div>
+                    </article>
+
+
+                    <!-- Pixals Core -->
+                    <article class="project">
+
+                        <div class="project-number">03 / GAME INFRASTRUCTURE</div>
+
+                        <div>
+                            <h3>Pixals Core</h3>
+
+                            <p>
+                                The foundation behind Pixals' gameplay
+                                ecosystem, providing reusable systems and
+                                infrastructure for different Minecraft
+                                experiences.
+                            </p>
+                        </div>
+
+                        <div class="project-footer">
+
+                            <div class="tags">
+                                <span class="tag">PHP</span>
+                                <span class="tag">PMMP</span>
+                                <span class="tag">Game Systems</span>
+                            </div>
+
+                            <span class="project-link">
+                                In development
+                            </span>
+
+                        </div>
+                    </article>
+
+
+                    <!-- TheBridge -->
+                    <article class="project">
+
+                        <div class="project-number">04 / GAMEPLAY</div>
+
+                        <div>
+                            <h3>TheBridge</h3>
+
+                            <p>
+                                A competitive Minecraft game mode built as
+                                part of the Pixals gameplay ecosystem, with
+                                custom mechanics and reusable infrastructure.
+                            </p>
+                        </div>
+
+                        <div class="project-footer">
+
+                            <div class="tags">
+                                <span class="tag">PHP</span>
+                                <span class="tag">PMMP</span>
+                                <span class="tag">Minigame</span>
+                            </div>
+
+                            <span class="project-link">
+                                In development
+                            </span>
+
+                        </div>
+                    </article>
+
+
+                    <!-- Duels -->
+                    <article class="project">
+
+                        <div class="project-number">05 / GAMEPLAY</div>
+
+                        <div>
+                            <h3>Duels</h3>
+
+                            <p>
+                                A competitive duel system designed around
+                                fast matchmaking, reusable arenas and
+                                extensible gameplay systems.
+                            </p>
+                        </div>
+
+                        <div class="project-footer">
+
+                            <div class="tags">
+                                <span class="tag">PHP</span>
+                                <span class="tag">PMMP</span>
+                                <span class="tag">PvP</span>
+                            </div>
+
+                            <span class="project-link">
+                                In development
+                            </span>
+
+                        </div>
+                    </article>
+
+
+                    <!-- FFA -->
+                    <article class="project">
+
+                        <div class="project-number">06 / GAMEPLAY</div>
+
+                        <div>
+                            <h3>FFA</h3>
+
+                            <p>
+                                A free-for-all PvP experience built around
+                                fast combat and the infrastructure provided
+                                by the Pixals ecosystem.
+                            </p>
+                        </div>
+
+                        <div class="project-footer">
+
+                            <div class="tags">
+                                <span class="tag">PHP</span>
+                                <span class="tag">PMMP</span>
+                                <span class="tag">PvP</span>
+                            </div>
+
+                            <span class="project-link">
+                                In development
+                            </span>
+
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- About -->
+        <section id="about" class="about">
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div>
+                        <div class="eyebrow">About me</div>
+
+                        <h2>More than<br>just Minecraft.</h2>
+                    </div>
+
+                    <div class="about-text">
+
+                        <p>
+                            I'm interested in understanding how software works
+                            from the inside out — from a network packet moving
+                            across a connection to the systems that process
+                            it on the other side.
+                        </p>
+
+                        <p>
+                            Minecraft is where a lot of that started, but the
+                            goal is broader: backend engineering, distributed
+                            systems, infrastructure and software that can
+                            survive beyond a prototype.
+                        </p>
+
+                        <div class="stack">
+                            <div class="stack-item">PHP / PMMP</div>
+                            <div class="stack-item">JavaScript / TypeScript</div>
+                            <div class="stack-item">Node.js</div>
+                            <div class="stack-item">Linux</div>
+                            <div class="stack-item">Docker</div>
+                            <div class="stack-item">PostgreSQL</div>
+                            <div class="stack-item">Python</div>
+                            <div class="stack-item">Networking</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Contact -->
+        <section id="contact" class="contact">
+            <div class="container">
+
+                <div class="contact-content">
+
+                    <div class="eyebrow">Contact</div>
+
+                    <h2>Let's build something.</h2>
+
+                    <p>
+                        Whether it's a technical project, an interesting
+                        problem, or just a conversation about software.
+                    </p>
+
+                    <div class="buttons" style="justify-content: center;">
+
+                        <a
+                            href="https://github.com/PixalsNetwork"
+                            target="_blank"
+                            class="button primary"
+                        >
+                            GitHub ↗
+                        </a>
+
+                        <a
+                            href="https://pixalsnetwork.net"
+                            target="_blank"
+                            class="button secondary"
+                        >
+                            Pixals ↗
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+
+            <div class="footer-inner">
+
+                <p>
+                    © 2026 Abdelrahman. Built from scratch.
+                </p>
+
+                <div class="footer-links">
+                    <a
+                        href="https://github.com/PixalsNetwork"
+                        target="_blank"
+                    >
+                        GitHub
+                    </a>
+
+                    <a
+                        href="https://pixalsnetwork.net"
+                        target="_blank"
+                    >
+                        Pixals
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+
+</body>
 </html>
