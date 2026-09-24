@@ -1,4 +1,12 @@
 {
-  "books": [],
+  "books": [
+    {
+      "id": "mufwjgp1",
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "note": "if you used this book in a way where you absorb it, you will build habits as a system",
+      "date": "2026-09-24"
+    }
+  ],
   "posts": []
 }
