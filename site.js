@@ -19,9 +19,14 @@
       ps.appendChild(a);
     });
   }
-  fetch('data.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){
-    if(d&&Array.isArray(d.books)&&Array.isArray(d.posts))DATA=d;render();
-  }).catch(render);
+  var loadErr='';
+  fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok){loadErr='data.json returned '+r.status;return null}return r.json()}).then(function(d){
+    if(d&&Array.isArray(d.books)&&Array.isArray(d.posts))DATA=d;else if(d&&!loadErr)loadErr='data.json is not shaped like {"books":[],"posts":[]}';
+  }).catch(function(){loadErr='could not load data.json'}).then(function(){
+    render();
+    var t=$('shelf')||$('posts');
+    if(loadErr&&t)t.appendChild(el(t.tagName==='UL'?'li':'p','small','('+loadErr+'. It should sit next to this page in the repo.)'));
+  });
 
   /* ---- admin panel markup (same on every page) ---- */
   var box=document.createElement('div');
